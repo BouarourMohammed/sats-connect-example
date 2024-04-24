@@ -28,7 +28,6 @@ import { useLocalStorage } from "./useLocalStorage";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import "./App.css";
-import { log } from "console";
 
 // import CreateRepeatInscriptions from "./components/createRepeatInscriptions";
 // import SignBulkTransaction from "./components/signBulkTransaction";
@@ -118,6 +117,7 @@ function App() {
             onFinish(response) {
               setCapabilities(new Set(response));
               setCapabilityState("loaded");
+              onConnectClick();
             },
             onCancel() {
               setCapabilityState("cancelled");
@@ -302,8 +302,11 @@ function App() {
           </button>
           <br />
           <br /> */}
-          <button style={{ height: 30, width: 180 }} onClick={onConnectClick}>
-            Connect
+          <button
+            style={{ height: 30, width: 200 }}
+            onClick={saved ? undefined : onConnectClick}
+          >
+            {saved ? "Connected, GoBack to Saga" : "Connect"}
           </button>
           {/* <button
             style={{ height: 30, width: 180, marginLeft: 10 }}
@@ -311,11 +314,6 @@ function App() {
           >
             Connect Account
           </button> */}
-          {saved && (
-            <button style={{ height: 30, width: 180 }} onClick={() => {}}>
-              Connected, Click to GoBack to Saga
-            </button>
-          )}
         </div>
       </div>
     );
