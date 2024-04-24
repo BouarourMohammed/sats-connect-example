@@ -109,7 +109,6 @@ function App() {
       let runs = 0;
       const MAX_RUNS = 20;
       setCapabilityState("loading");
-
       // the wallet's in-page script may not be loaded yet, so we'll try a few times
       while (runs < MAX_RUNS) {
         try {
@@ -117,7 +116,6 @@ function App() {
             onFinish(response) {
               setCapabilities(new Set(response));
               setCapabilityState("loaded");
-              onConnectClick();
             },
             onCancel() {
               setCapabilityState("cancelled");
@@ -140,6 +138,12 @@ function App() {
 
     runCapabilityCheck();
   }, []);
+
+  useEffect(() => {
+    if (capabilityState === "loaded" && !saved) {
+      onConnectClick();
+    }
+  }, [capabilityState, saved]);
 
   const isReady =
     !!paymentAddress &&
