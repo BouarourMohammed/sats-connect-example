@@ -44,7 +44,7 @@ function App() {
     useLocalStorage("stacksPublicKey");
   const [network, setNetwork] = useLocalStorage<BitcoinNetworkType>(
     "network",
-    BitcoinNetworkType.Testnet
+    BitcoinNetworkType.Mainnet
   );
   const [capabilityState, setCapabilityState] = useState<
     "loading" | "loaded" | "missing" | "cancelled"
@@ -134,9 +134,9 @@ function App() {
         purposes: [
           AddressPurpose.Ordinals,
           AddressPurpose.Payment,
-          AddressPurpose.Stacks,
+          // AddressPurpose.Stacks,
         ],
-        message: "SATS Connect Demo",
+        message: "Sagaverse ",
         network: {
           type: network,
         },
@@ -165,12 +165,16 @@ function App() {
   };
 
   const onConnectAccountClick = async () => {
-    const response = await request('getAccounts', {
-      purposes: [AddressPurpose.Ordinals, AddressPurpose.Payment, AddressPurpose.Stacks],
-      message: 'SATS Connect Demo',
+    const response = await request("getAccounts", {
+      purposes: [
+        AddressPurpose.Ordinals,
+        AddressPurpose.Payment,
+        // AddressPurpose.Stacks,
+      ],
+      message: "SATS Connect Demo",
     });
-    console.log("getAccounts ~ response:", response)
-    if (response.status === 'success') {
+    console.log("getAccounts ~ response:", response);
+    if (response.status === "success") {
       const paymentAddressItem = response.result.find(
         (address) => address.purpose === AddressPurpose.Payment
       );
@@ -194,27 +198,27 @@ function App() {
         console.error(response.error);
       }
     }
-  }
+  };
 
-  const capabilityMessage =
-    capabilityState === "loading"
-      ? "Checking capabilities..."
-      : capabilityState === "cancelled"
-      ? "Capability check cancelled by wallet. Please refresh the page and try again."
-      : capabilityState === "missing"
-      ? "Could not find an installed Sats Connect capable wallet. Please install a wallet and try again."
-      : !capabilities
-      ? "Something went wrong with getting capabilities"
-      : undefined;
+  // const capabilityMessage =
+  //   capabilityState === "loading"
+  //     ? "Checking capabilities..."
+  //     : capabilityState === "cancelled"
+  //     ? "Capability check cancelled by wallet. Please refresh the page and try again."
+  //     : capabilityState === "missing"
+  //     ? "Could not find an installed Sats Connect capable wallet. Please install a wallet and try again."
+  //     : !capabilities
+  //     ? "Something went wrong with getting capabilities"
+  //     : undefined;
 
-  if (capabilityMessage) {
-    return (
-      <div style={{ padding: 30 }}>
-        <h1>Sats Connect Test App - {network}</h1>
-        <div>{capabilityMessage}</div>
-      </div>
-    );
-  }
+  // if (capabilityMessage) {
+  //   return (
+  //     <div style={{ padding: 30 }}>
+  //       <h1>Sats Connect Test App - {network}</h1>
+  //       <div>{capabilityMessage}</div>
+  //     </div>
+  //   );
+  // }
 
   if (!isReady) {
     return (
@@ -245,7 +249,10 @@ function App() {
           <button style={{ height: 30, width: 180 }} onClick={onConnectClick}>
             Connect
           </button>
-          <button style={{ height: 30, width: 180, marginLeft: 10 }} onClick={onConnectAccountClick}>
+          <button
+            style={{ height: 30, width: 180, marginLeft: 10 }}
+            onClick={onConnectAccountClick}
+          >
             Connect Account
           </button>
         </div>
@@ -271,15 +278,15 @@ function App() {
           <h3>Get Wallet Info</h3>
           <button onClick={handleGetInfo}>Request Info</button>
         </div>
-        <SignTransaction
+        {/* <SignTransaction
           paymentAddress={paymentAddress}
           paymentPublicKey={paymentPublicKey}
           ordinalsAddress={ordinalsAddress}
           ordinalsPublicKey={ordinalsPublicKey}
           network={network}
           capabilities={capabilities!}
-        />
-
+        /> */}
+        {/* 
         <SignBulkTransaction
           paymentAddress={paymentAddress}
           paymentPublicKey={paymentPublicKey}
@@ -299,16 +306,16 @@ function App() {
           address={paymentAddress}
           network={network}
           capabilities={capabilities!}
-        />
+        /> */}
 
-        <CreateTextInscription network={network} capabilities={capabilities!} />
+        {/* <CreateTextInscription network={network} capabilities={capabilities!} />
 
         <CreateRepeatInscriptions
           network={network}
           capabilities={capabilities!}
         />
 
-        <CreateFileInscription network={network} capabilities={capabilities!} />
+        <CreateFileInscription network={network} capabilities={capabilities!} /> */}
       </div>
 
       <h2>Stacks</h2>
@@ -317,7 +324,7 @@ function App() {
         <p>Stacks PubKey: {stacksPublicKey}</p>
         <br />
 
-        <StxGetAccounts />
+        {/* <StxGetAccounts />
 
         <StxGetAddresses />
 
@@ -334,7 +341,7 @@ function App() {
 
         <StxSignStructuredMessage network={network} />
 
-        <StxDeployContract network={network} />
+        <StxDeployContract network={network} /> */}
       </div>
     </div>
   );
