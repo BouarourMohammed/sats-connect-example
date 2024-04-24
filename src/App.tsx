@@ -139,7 +139,7 @@ function App() {
     };
 
     runCapabilityCheck();
-  }, [network]);
+  }, []);
 
   const isReady =
     !!paymentAddress &&
@@ -186,10 +186,10 @@ function App() {
       payload: {
         purposes: [
           AddressPurpose.Ordinals,
-          AddressPurpose.Payment,
+          // AddressPurpose.Payment,
           // AddressPurpose.Stacks,
         ],
-        message: "Sagaverse ",
+        message: "Sagaverse Connect Demo",
         network: {
           type: network,
         },
