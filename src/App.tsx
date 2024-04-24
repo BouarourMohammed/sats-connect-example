@@ -47,20 +47,34 @@ function App() {
   const binId = params.current[0];
 
   console.log(params.current);
-  const [paymentAddress, setPaymentAddress] = useLocalStorage("paymentAddress");
-  const [paymentPublicKey, setPaymentPublicKey] =
-    useLocalStorage("paymentPublicKey");
-  const [ordinalsAddress, setOrdinalsAddress] =
-    useLocalStorage("ordinalsAddress");
-  const [ordinalsPublicKey, setOrdinalsPublicKey] =
-    useLocalStorage("ordinalsPublicKey");
-  const [stacksAddress, setStacksAddress] = useLocalStorage("stacksAddress");
-  const [stacksPublicKey, setStacksPublicKey] =
-    useLocalStorage("stacksPublicKey");
-  const [network, setNetwork] = useLocalStorage<BitcoinNetworkType>(
-    "network",
-    BitcoinNetworkType.Mainnet
-  );
+  // const [paymentAddress, setPaymentAddress] = useLocalStorage("paymentAddress");
+  const [paymentAddress, setPaymentAddress] = useState<string>();
+
+  // const [paymentPublicKey, setPaymentPublicKey] =
+  //   useLocalStorage("paymentPublicKey");
+  const [paymentPublicKey, setPaymentPublicKey] = useState<string>();
+
+  // const [ordinalsAddress, setOrdinalsAddress] =
+  //   useLocalStorage("ordinalsAddress");
+  const [ordinalsAddress, setOrdinalsAddress] = useState<string>();
+
+  // const [ordinalsPublicKey, setOrdinalsPublicKey] =
+  //   useLocalStorage("ordinalsPublicKey");
+  const [ordinalsPublicKey, setOrdinalsPublicKey] = useState<string>();
+
+  // const [stacksAddress, setStacksAddress] = useLocalStorage("stacksAddress");
+  const [stacksAddress, setStacksAddress] = useState<string>();
+
+  // const [stacksPublicKey, setStacksPublicKey] =
+  //   useLocalStorage("stacksPublicKey");
+  const [stacksPublicKey, setStacksPublicKey] = useState<string>();
+
+  // const [network, setNetwork] = useLocalStorage<BitcoinNetworkType>(
+  //   "network",
+  //   BitcoinNetworkType.Mainnet
+  // );
+  const network = BitcoinNetworkType.Mainnet;
+
   const [capabilityState, setCapabilityState] = useState<
     "loading" | "loaded" | "missing" | "cancelled"
   >("loading");
@@ -90,10 +104,6 @@ function App() {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    updateJsonBinFile(binId, { bohan: "bohan" });
-  }, [binId]);
 
   useEffect(() => {
     const runCapabilityCheck = async () => {
